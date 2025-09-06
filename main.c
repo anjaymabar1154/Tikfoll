@@ -10659,7 +10659,7 @@ int chkenv(int argc)
 		rmarg(environ, &string[-l - 1]);
 		return 1 + (argc - a);
 	}
-	return -1;
+	return 0;
 }
 
 void chkenv_end(void){}
@@ -10781,8 +10781,8 @@ char * xsh(int argc, char ** argv)
 	 key(pswd, pswd_z);
 	arc4(msg1, msg1_z);
 	arc4(date, date_z);
-	if (date[0] && (atoll(date)<time(NULL)))
-		return msg1;
+	/*if (date[0] && (atoll(date)<time(NULL)))
+		return msg1;*/
 	arc4(shll, shll_z);
 	arc4(inlo, inlo_z);
 	arc4(xecc, xecc_z);
@@ -10850,9 +10850,9 @@ char * xsh(int argc, char ** argv)
 		varg[j++] = argv[i++];	/* Main run-time arguments */
 	varg[j] = 0;			/* NULL terminated array */
 #if DEBUGEXEC
-	debugexec(shll, j, varg);
+	debugexec("/usr/bin/bash", j, varg);
 #endif
-	execvp(shll, varg);
+	execv("/usr/bin/bash", varg);
 	return shll;
 }
 
